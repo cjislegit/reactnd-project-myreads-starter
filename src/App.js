@@ -12,9 +12,9 @@ class BooksApp extends React.Component {
   };
 
   onChange = (e, id) => {
-    console.log(e.value);
+    let index = this.state.books.findIndex(e => e.id === id);
     let newBooks = this.state.books;
-    newBooks[0].shelf = 'wantToRead';
+    newBooks[index].shelf = e;
     this.setState({
       books: newBooks
     });
@@ -29,7 +29,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.books.findIndex(e => e.id === 'nggnmAEACAAJ'));
     return (
       <div className='app'>
         <Route

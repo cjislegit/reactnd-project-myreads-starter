@@ -17,7 +17,7 @@ const Book = props => {
           <div className='book-shelf-changer'>
             <select
               value={props.shelf}
-              onChange={e => props.changeStatus(e, props.id)}
+              onChange={e => props.changeStatus(e.target.value, props.id)}
             >
               <option value='move' disabled>
                 Move to...

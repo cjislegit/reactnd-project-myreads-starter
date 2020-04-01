@@ -22,8 +22,12 @@ const BookList = props => {
             books={currentlyReading}
             changeStatus={changeStatus}
           />
-          <Shelf shelfName='Want to Read' books={wantToRead} />
-          <Shelf shelfName='Read' books={read} />
+          <Shelf
+            shelfName='Want to Read'
+            books={wantToRead}
+            changeStatus={changeStatus}
+          />
+          <Shelf shelfName='Read' books={read} changeStatus={changeStatus} />
         </div>
       </div>
       <Link to='/search'>
