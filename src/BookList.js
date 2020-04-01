@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 
 const BookList = props => {
-  let { books } = props;
+  let { books, changeStatus } = props;
   let currentlyReading = books.filter(
     book => book.shelf === 'currentlyReading'
   );
@@ -17,7 +17,11 @@ const BookList = props => {
       </div>
       <div className='list-books-content'>
         <div>
-          <Shelf shelfName='Currently Reading' books={currentlyReading} />
+          <Shelf
+            shelfName='Currently Reading'
+            books={currentlyReading}
+            changeStatus={changeStatus}
+          />
           <Shelf shelfName='Want to Read' books={wantToRead} />
           <Shelf shelfName='Read' books={read} />
         </div>

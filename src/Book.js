@@ -15,7 +15,10 @@ const Book = props => {
             }}
           ></div>
           <div className='book-shelf-changer'>
-            <select>
+            <select
+              value={props.shelf}
+              onChange={e => props.changeStatus(e, props.id)}
+            >
               <option value='move' disabled>
                 Move to...
               </option>

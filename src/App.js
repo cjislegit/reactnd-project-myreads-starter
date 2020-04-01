@@ -11,6 +11,15 @@ class BooksApp extends React.Component {
     books: []
   };
 
+  onChange = (e, id) => {
+    console.log(e.value);
+    let newBooks = this.state.books;
+    newBooks[0].shelf = 'wantToRead';
+    this.setState({
+      books: newBooks
+    });
+  };
+
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState(() => ({
@@ -20,12 +29,15 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    console.log(this.state.books.findIndex(e => e.id === 'nggnmAEACAAJ'));
     return (
       <div className='app'>
         <Route
           exact
           path='/'
-          render={() => <BookList books={this.state.books} />}
+          render={() => (
+            <BookList books={this.state.books} changeStatus={this.onChange} />
+          )}
         />
         <Route exact path='/search' component={Search} />
       </div>
