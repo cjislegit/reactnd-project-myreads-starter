@@ -18,6 +18,7 @@ class BooksApp extends React.Component {
     this.setState({
       books: newBooks
     });
+    BooksAPI.update({ id: id }, e);
   };
 
   componentDidMount() {
