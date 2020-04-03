@@ -16,9 +16,16 @@ class Search extends Component {
     });
 
     BooksAPI.search(e.target.value).then(result => {
-      this.setState(() => ({
-        result
-      }));
+      console.log(result);
+      if (result) {
+        this.setState(() => ({
+          result
+        }));
+      } else {
+        this.setState({
+          result: []
+        });
+      }
     });
   };
 
@@ -48,14 +55,16 @@ class Search extends Component {
         </div>
         <div className='search-books-results'>
           <ol className='books-grid'>
-            {this.state.result.map(book => (
-              <Book
-                imageLinks={book.imageLinks}
-                title={book.title}
-                authors={book.authors}
-                shelf='none'
-              />
-            ))}
+            {this.state.result.length > 0
+              ? this.state.result.map(book => (
+                  <Book
+                    imageLinks={book.imageLinks || './icons/nc-md.gif'}
+                    title={book.title}
+                    authors={book.authors}
+                    shelf='none'
+                  />
+                ))
+              : null}
           </ol>
         </div>
       </div>
