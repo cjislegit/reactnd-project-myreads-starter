@@ -77,6 +77,7 @@ class Search extends Component {
                     title={book.title}
                     authors={book.authors}
                     shelf={book.shelf}
+                    key={book.id}
                   />
                 ))
               : null}
