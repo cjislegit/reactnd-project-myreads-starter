@@ -78,6 +78,7 @@ class Search extends Component {
                     authors={book.authors}
                     shelf={book.shelf}
                     key={book.id}
+                    changeStatus={this.props.changeStatus}
                   />
                 ))
               : null}
