@@ -16,12 +16,25 @@ class Search extends Component {
     });
 
     BooksAPI.search(e.target.value).then(result => {
-      console.log(result);
+      //Checks if there is a result for the query
       if (result) {
+        //For each result it compres it to the books state from the App component
+        result.forEach(result => {
+          this.props.books.forEach(book => {
+            //If a quesry result has the same id it ads the shelf property from book state else sets it to none
+            if (book.id === result.id) {
+              result.shelf = book.shelf;
+            } else {
+              result.shelf = 'none';
+            }
+          });
+        });
+        //Adds result to state if it is not blank
         this.setState(() => ({
           result
         }));
       } else {
+        //If result is blank it sets to empty array
         this.setState({
           result: []
         });
@@ -55,13 +68,15 @@ class Search extends Component {
         </div>
         <div className='search-books-results'>
           <ol className='books-grid'>
+            {/* Checks if result is not empty before running .map */}
             {this.state.result.length > 0
               ? this.state.result.map(book => (
                   <Book
+                    //If the book as no imageLins the proerty is set to './icons/nc-md.gif'
                     imageLinks={book.imageLinks || './icons/nc-md.gif'}
                     title={book.title}
                     authors={book.authors}
-                    shelf='none'
+                    shelf={book.shelf}
                   />
                 ))
               : null}
