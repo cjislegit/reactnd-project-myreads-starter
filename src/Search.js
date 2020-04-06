@@ -16,9 +16,9 @@ class Search extends Component {
     });
 
     BooksAPI.search(e.target.value).then((result) => {
-      //Checks if there is a result for the query
-      if (result) {
-        //For each result it compres it to the books state from the App component
+      //Checks if there is a result for the query and if it is an array
+      if (Array.isArray(result)) {
+        //For each result it compares it to the books state from the App component
         result.forEach((result) => {
           this.props.books.forEach((book) => {
             //If a quesry result has the same id it ads the shelf property from book state else sets it to none
