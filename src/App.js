@@ -8,28 +8,36 @@ import BookList from './BookList';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
   };
 
   onChange = (e, id) => {
-    let index = this.state.books.findIndex(e => e.id === id);
+    let index = this.state.books.findIndex((e) => e.id === id);
     let newBooks = this.state.books;
     newBooks[index].shelf = e;
     this.setState({
-      books: newBooks
+      books: newBooks,
     });
     BooksAPI.update({ id: id }, e);
   };
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => {
+    BooksAPI.getAll().then((books) => {
       this.setState(() => ({
-        books
+        books,
       }));
     });
   }
 
-  addBook = () => {};
+  addBook = (e, newBook) => {
+    newBook.shelf = e;
+    let newBooks = this.state.books;
+    newBooks.push(newBook);
+    this.setState({
+      books: newBooks,
+    });
+    BooksAPI.update(newBook, e);
+  };
 
   render() {
     return (
@@ -45,7 +53,7 @@ class BooksApp extends React.Component {
           exact
           path='/search'
           render={() => (
-            <Search books={this.state.books} changeStatus={this.onChange} />
+            <Search books={this.state.books} addBook={this.addBook} />
           )}
         />
       </div>

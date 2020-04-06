@@ -2,25 +2,25 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 
-import Book from './Book';
+import SearchResult from './SearchResult';
 
 class Search extends Component {
   state = {
     query: '',
-    result: []
+    result: [],
   };
 
-  changeQuery = e => {
+  changeQuery = (e) => {
     this.setState({
-      query: e.target.value
+      query: e.target.value,
     });
 
-    BooksAPI.search(e.target.value).then(result => {
+    BooksAPI.search(e.target.value).then((result) => {
       //Checks if there is a result for the query
       if (result) {
         //For each result it compres it to the books state from the App component
-        result.forEach(result => {
-          this.props.books.forEach(book => {
+        result.forEach((result) => {
+          this.props.books.forEach((book) => {
             //If a quesry result has the same id it ads the shelf property from book state else sets it to none
             if (book.id === result.id) {
               result.shelf = book.shelf;
@@ -31,12 +31,12 @@ class Search extends Component {
         });
         //Adds result to state if it is not blank
         this.setState(() => ({
-          result
+          result,
         }));
       } else {
         //If result is blank it sets to empty array
         this.setState({
-          result: []
+          result: [],
         });
       }
     });
@@ -62,7 +62,7 @@ class Search extends Component {
               type='text'
               placeholder='Search by title or author'
               value={this.state.query}
-              onChange={e => this.changeQuery(e)}
+              onChange={(e) => this.changeQuery(e)}
             />
           </div>
         </div>
@@ -70,15 +70,11 @@ class Search extends Component {
           <ol className='books-grid'>
             {/* Checks if result is not empty before running .map */}
             {this.state.result.length > 0
-              ? this.state.result.map(book => (
-                  <Book
-                    //If the book as no imageLins the proerty is set to './icons/nc-md.gif'
-                    imageLinks={book.imageLinks || './icons/nc-md.gif'}
-                    title={book.title}
-                    authors={book.authors}
-                    shelf={book.shelf}
+              ? this.state.result.map((book) => (
+                  <SearchResult
                     key={book.id}
-                    changeStatus={this.props.changeStatus}
+                    addBook={this.props.addBook}
+                    book={book}
                   />
                 ))
               : null}
