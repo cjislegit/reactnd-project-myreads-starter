@@ -20,14 +20,17 @@ class Search extends Component {
       if (Array.isArray(result)) {
         //For each result it compares it to the books state from the App component
         result.forEach((result) => {
-          this.props.books.forEach((book) => {
-            //If a quesry result has the same id it ads the shelf property from book state else sets it to none
-            if (book.id === result.id) {
-              result.shelf = book.shelf;
-            } else {
-              result.shelf = 'none';
-            }
-          });
+          //Checks if the result.id is in the books array and saves the index to bookIndex
+          let bookIndex = this.props.books.findIndex(
+            (book) => book.id === result.id
+          );
+          //If the bookIndex is greater than -1 it updates the shelf from the state
+          if (bookIndex > -1) {
+            result.shelf = this.props.books[bookIndex].shelf;
+            //Else it sets it to none
+          } else {
+            result.shelf = 'none';
+          }
         });
         //Adds result to state if it is not blank
         this.setState(() => ({
