@@ -1,6 +1,15 @@
 import React from 'react';
 
-const Book = props => {
+import defaultBackground from './icons/nc-md.gif';
+
+const Book = (props) => {
+  //Checks if there is a thumbnail img
+  let bookBackground = props.imageLinks
+    ? //IF there is variable is set to it
+      props.imageLinks.thumbnail
+    : //If not a default img from the icons folder goes in the variable
+      defaultBackground;
+
   return (
     <li>
       <div className='book'>
@@ -10,14 +19,14 @@ const Book = props => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url("${props.imageLinks.thumbnail}")`,
-              backgroundSize: 'cover'
+              backgroundImage: `url("${bookBackground}")`,
+              backgroundSize: 'cover',
             }}
           ></div>
           <div className='book-shelf-changer'>
             <select
               value={props.shelf}
-              onChange={e => props.changeStatus(e.target.value, props.id)}
+              onChange={(e) => props.changeStatus(e.target.value, props.id)}
             >
               <option value='move' disabled>
                 Move to...
@@ -30,7 +39,9 @@ const Book = props => {
           </div>
         </div>
         <div className='book-title'>{props.title}</div>
-        <div className='book-authors'>{props.authors}</div>
+        <div className='book-authors'>
+          {props.authors ? props.authors.join(', ') : props.authors}
+        </div>
       </div>
     </li>
   );
