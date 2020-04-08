@@ -39,9 +39,17 @@ class BooksApp extends React.Component {
     //Updates the shelf key with new value
     newBook.shelf = e;
     //Copies state to newBooks
-    let newBooks = this.state.books;
-    //Adds the new book to newBooks array
-    newBooks.push(newBook);
+    let newBooks = [...this.state.books];
+    //Checks to see if the ID of the new book matches any of the IDs already in state
+    let indexNewBook = newBooks.findIndex((book) => book.id === newBook.id);
+    //If the new book is already in state it updates the shelf of the book
+    if (indexNewBook > -1) {
+      newBooks[indexNewBook].shelf = newBook.shelf;
+    } else {
+      //If not it adds the new book to newBooks array
+      newBooks.push(newBook);
+    }
+
     //Updates state
     this.setState({
       books: newBooks,
