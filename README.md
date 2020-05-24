@@ -1,6 +1,6 @@
 # MyReads Project
 
-A web application that allows you to easily categorize books you have read, want to read or are currently reading.
+A web application that allows you to easily categorize books you have read, want to read or are currently reading. Built using React and Udacity's books API.
 
 ## Installation
 
